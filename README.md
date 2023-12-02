@@ -2,28 +2,34 @@
 https://es1015.tistory.com/344
 여기 사이트 참고해서 본인이 쓰려는 서버 포트 예)8082 방화벽 해제 해줘야함. 안그러면 get요청 밖에 안되고 post(삽입),put(수정) 요청 아예 못함. 
 
-###초기 환경변수 설정방법
+##초기 환경변수 설정방법
 server.js 파일 들어가서 주석확인하고 본인 mysql 환경변수로 바꿔주기
+```javascript
 // MySQL 연결 설정
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'hansung', //본인 mysql 아이디로 바꿔줘야함
-    password: 'hansung', //본인 mysql 비번으로 바꿔줘야함
-    database: 'cafedb', //본인 db 이름으로 바꿔줘야함
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+  host: 'localhost',      // 본인 MySQL 호스트 주소로 바꿔주세요
+  user: 'hansung',        // 본인 MySQL 아이디로 바꿔주세요
+  password: 'hansung',    // 본인 MySQL 비밀번호로 바꿔주세요
+  database: 'cafedb',     // 본인 데이터베이스 이름으로 바꿔주세요
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
+
 // 데이터베이스 연결 확인
 pool.getConnection((err, connection) => {
-    if (err) throw err; // 연결에 실패한 경우 예외를 던짐
-    console.log('Connected as ID ' + connection.threadId);
-    connection.release(); // 연결 해제
-###본인 포트번호로 수정하기(보통 초기값 8080임)
-    app.listen(8082, function(){ 
-        console.log('listening on 8082')
-    });
+  if (err) throw err; // 연결에 실패한 경우 예외를 던짐
+  console.log('Connected as ID ' + connection.threadId);
+  connection.release(); // 연결 해제
 });
+
+// 본인 포트번호로 수정하기 (기본값은 8080일 수 있습니다)
+app.listen(8082, function(){
+  console.log('listening on 8082');
+});
+```
+
+
 
 ###카페 관리 시스템 API 문서
 개요: 이 API는 카페 관리 시스템과 관련된 메뉴, 재고, 가맹점 정보 관리를 위한 다양한 엔드포인트를 제공합니다.
