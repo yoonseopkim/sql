@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>메뉴 목록</title>
+</head>
+<body>
+
+<h1>메뉴 목록</h1>
+<div id="menu-list"></div>
+
+<script>
+    // 서버에서 메뉴 데이터 가져오기
+    fetch('http://localhost:8082/menu_data')
+    .then(response => response.json())
+        .then(data => {
+            const menuList = document.getElementById('menu-list');
+            data.forEach(menu => {
+                const menuItem = document.createElement('div');
+                menuItem.innerHTML = `
+                    <h3>${menu.menu_name} (${menu.menu_price}원)</h3>
+                    <p>${menu.menu_explanation}</p>
+                    <img src="${menu.menu_image}" alt="${menu.menu_name}" style="width:200px; height:auto;">
+                `;
+                menuList.appendChild(menuItem);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+
+</body>
+</html>
