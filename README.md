@@ -8,18 +8,18 @@ https://es1015.tistory.com/344
 개요: 이 API는 카페 관리 시스템과 관련된 메뉴, 재고, 가맹점 정보 관리를 위한 다양한 엔드포인트를 제공합니다.
 기본 URL: http://localhost:8082 (본인 포트로 수정해줄 것)
 
-엔드포인트
-번호	기능	URL	메소드	설명
-1	메뉴 데이터 가져오기	/menu_data	GET	모든 메뉴 항목 검색
-2	메뉴 카테고리 데이터 가져오기	/menu_category_data	GET	모든 메뉴 카테고리 검색
-3	메뉴 상태 데이터 가져오기	/menu_state_data	GET	모든 메뉴 상태 검색
-4	레시피 데이터 가져오기	/recipe_data	GET	모든 레시피 검색
-5	재고 명칭 데이터 가져오기	/stock_name_data	GET	모든 재고 명칭 검색
-6	재고 카테고리 데이터 가져오기	/stock_category_data	GET	모든 재고 카테고리 검색
-7	가맹점 재고 데이터 가져오기	/store_stock_data	GET	모든 가맹점 재고 정보 검색
-8	가맹점 재고 데이터 수정하기	/store_stock_data/:stock_id	PUT	특정 재고 항목 상세 정보 수정
-9	가맹점 데이터 가져오기	/franchise_store_data	GET	모든 가맹점 정보 검색
-10	새 가맹점 추가하기	/franchise_store_data	POST	새 가맹점 추가
+| 번호 | 기능                          | URL                  | 메소드 | 설명                           |
+|------|------------------------------|-----------------------|--------|--------------------------------|
+| 1    | 메뉴 데이터 가져오기           | /menu_data            | GET    | 모든 메뉴 항목 검색             |
+| 2    | 메뉴 카테고리 데이터 가져오기 | /menu_category_data   | GET    | 모든 메뉴 카테고리 검색       |
+| 3    | 메뉴 상태 데이터 가져오기     | /menu_state_data      | GET    | 모든 메뉴 상태 검색           |
+| 4    | 레시피 데이터 가져오기         | /recipe_data          | GET    | 모든 레시피 검색               |
+| 5    | 재고 명칭 데이터 가져오기     | /stock_name_data      | GET    | 모든 재고 명칭 검색           |
+| 6    | 재고 카테고리 데이터 가져오기 | /stock_category_data  | GET    | 모든 재고 카테고리 검색       |
+| 7    | 가맹점 재고 데이터 가져오기   | /store_stock_data     | GET    | 모든 가맹점 재고 정보 검색     |
+| 8    | 가맹점 재고 데이터 수정하기   | /store_stock_data/:stock_id | PUT | 특정 재고 항목 상세 정보 수정 |
+| 9    | 가맹점 데이터 가져오기         | /franchise_store_data | GET    | 모든 가맹점 정보 검색           |
+| 10   | 새 가맹점 추가하기            | /franchise_store_data | POST   | 새 가맹점 추가                   |
 
 
 
