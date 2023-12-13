@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>재고 목록</title>
+    <style>
+        .stock-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .stock-table th, .stock-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .stock-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>전체 재고 목록</h1>
+<div id="stock-list"></div>
+
+<script>
+    // 서버에서 재고 데이터 가져오기
+    fetch(`http://localhost:8082/stock_name_data`)
+        .then(response => response.json())
+        .then(data => {
+            const stockList = document.getElementById('stock-list');
+            let tableHtml = '<table class="stock-table"><tr><th>재고 코드</th><th>재고 이름</th><th>카테고리 코드</th></tr>';
+            data.forEach(stock => {
+                tableHtml += `<tr><td>${stock.stock_name_code}</td><td>${stock.stock_name}</td><td>${stock.stock_category_code}</td></tr>`;
+            });
+            tableHtml += '</table>';
+            stockList.innerHTML = tableHtml;
+        })
+        .catch(error => console.error('Error:', error));
+</script>
+
+</body>
+</html>

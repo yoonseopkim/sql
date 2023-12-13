@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>메뉴 목록</title>
+  <style>
+    .recipe-button {
+      background-color: #b2f2bb; /* 연두색 */
+      border: none;
+      border-radius: 5px; /* 모서리 둥글게 */
+      padding: 5px 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .recipe-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .recipe-table th, .recipe-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>전체 메뉴 목록</h1>
+<div id="menu-list"></div>
+
+<script>
+  let stockNameData = {};
+
+  // 재고 이름 데이터 가져오기
+  fetch('http://localhost:8082/stock_name_data')
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(stock => {
+              stockNameData[stock.stock_name_code] = stock.stock_name;
+            });
+          })
+          .catch(error => console.error('Error:', error));
+
+  // 서버에서 메뉴 데이터 가져오기
+  fetch('http://localhost:8082/menu_data')
+          .then(response => response.json())
+          .then(data => {
+            const menuList = document.getElementById('menu-list');
+            data.forEach(menu => {
+              const menuItem = document.createElement('div');
+              menuItem.innerHTML = `
+                <h3>${menu.menu_name} (${menu.menu_price}원)</h3>
+                <p>${menu.menu_explanation}</p>
+                <img src="${menu.menu_image}" alt="${menu.menu_name}" style="width:200px; height:auto;">
+                <button class="recipe-button" onclick="toggleRecipe(${menu.menu_id})">메뉴별 레시피</button>
+                <div id="recipe-${menu.menu_id}" style="display:none;"></div>
+            `;
+              menuList.appendChild(menuItem);
+            });
+          })
+          .catch(error => console.error('Error:', error));
+
+  // 레시피 데이터 토글 및 표시
+  function toggleRecipe(menuId) {
+    const recipeDiv = document.getElementById(`recipe-${menuId}`);
+    if (recipeDiv.style.display === 'none' || recipeDiv.style.display === '') {
+      showRecipe(menuId);
+    } else {
+      recipeDiv.style.display = 'none';
+    }
+  }
+
+  // 레시피 데이터 가져오기 및 표시
+  function showRecipe(menuId) {
+    fetch('http://localhost:8082/recipe_data')
+            .then(response => response.json())
+            .then(recipes => {
+              const filteredRecipes = recipes.filter(recipe => recipe.menu_id === menuId);
+              const recipeDiv = document.getElementById(`recipe-${menuId}`);
+              if (filteredRecipes.length > 0 && recipeDiv.innerHTML === '') {
+                let tableHtml = '<table class="recipe-table"><tr><th>재료 코드</th><th>재료 이름</th><th>메뉴 ID</th></tr>';
+                filteredRecipes.forEach(recipe => {
+                  const stockName = stockNameData[recipe.stock_name_code] || '알 수 없음';
+                  tableHtml += `<tr><td>${recipe.stock_name_code}</td><td>${stockName}</td><td>${recipe.menu_id}</td></tr>`;
+                });
+                tableHtml += '</table>';
+                recipeDiv.innerHTML = tableHtml;
+              }
+              recipeDiv.style.display = 'block';
+            })
+            .catch(error => console.error('Error:', error));
+  }
+</script>
+
+</body>
+</html>
