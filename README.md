@@ -1,6 +1,39 @@
-# <필독> 방화벽 해제 관련 수정, 삽입시 필수
-https://es1015.tistory.com/344
-여기 사이트 참고해서 본인이 쓰려는 서버 포트 예)8082 방화벽 해제 해줘야함. 안그러면 get요청 밖에 안되고 post(삽입),put(수정) 요청 아예 못함. 
+# 커피 가맹점 관리 시스템
+
+### 프로젝트 배경 및 목적
+
+카페에 방문하는 소비자를 위한 시스템이 아닌, 본사가 가맹점들을 관리하기 위한 관 리자 입장에서의 DB를 중심으로 구상
+
+• 실시간 재고 및 매출 파악을 통한 효율적인 운영 지원
+
+• 가맹점 별 차별화된 메뉴와 그에 따른 재고 관리의 필요성 인식
+
+• 직원정보를 조회하고 수정이 가능하게 하여 직원관리가 용이하게 함.
+
+### 주요기능
+
+가맹점 관리: 본사는 각 가맹점의 소유자 정보, 연락처, 상태 코드등을 포함한 가맹점 정보 를 관리
+
+• 메뉴 관리: 가맹점마다 제공하는 메뉴의 종류, 가격, 설명, 이미지 및 상태를 관리하여 차 별화된 메뉴 제공 지원 및 메뉴별 판매량 관리를 통해 인기 메뉴 추적 및 메뉴 개발에 대 한 정보 제공함
+
+• 재고관리:실시간으로 재고수량,가격,수입 및 만료일을 포함한 재고관리를 통해 원활한 재고 유지 및 비효율적인 재고 소진을 방지
+
+• 직원관리:각 가맹점에서 근무하는 직원의 정보,직책,근무기간 및급여 관리를 통해 인력 관리의 효율성을 높임
+
+• 매출 관리: 판매량 데이터를 통해 각 가맹점의 성과를 모니터링하고, 매출 추세 분석을 지 원함
+
+### 프로그램 구조도
+![img_7.png](img%2Fimg_7.png)
+
+### DFD
+![img_8.png](img%2Fimg_8.png)
+### ERD
+
+![database_classN_team2_ERD 복사본.png](img%2Fdatabase_classN_team2_ERD%20%EB%B3%B5%EC%82%AC%EB%B3%B8.png)
+
+### 테이블 정의서 샘플
+![img.png](img%2Fimg.png)
+
 
 
 
@@ -21,14 +54,38 @@ https://es1015.tistory.com/344
 | 9    | 가맹점 데이터 가져오기         | /franchise_store_data | GET    | 모든 가맹점 정보 검색           |
 | 10   | 새 가맹점 추가하기            | /franchise_store_data | POST   | 새 가맹점 추가                   |
 
+### 시연 화면
+메뉴 테이블 화면
+![img_2.png](img%2Fimg_2.png)
+재고 목록 화면
+![img_3.png](img%2Fimg_3.png)
+가맹점 정보 및 가맹점 추가 화면
+![img_4.png](img%2Fimg_4.png)
+신규 가맹점을 추가할 수 있습니다.
+
+가맹점 별 판매가능 메뉴 화면
+![img_5.png](img%2Fimg_5.png)
+가맹점마다의 고유한 메뉴와 판매 상태를 확인할 수 있습니다.
+
+직원 및 재고관리 화면
+
+![img_6.png](img%2Fimg_6.png)
+
+근무중인 직원정보를 조회할 수 있고 재고와 관련된 정보를 변경할 수 있습니다.
+### <필독> 방화벽 해제 관련 수정, 삽입시 필수
+https://es1015.tistory.com/344
+여기 사이트 참고해서 본인이 쓰려는 서버 포트 예)8082 방화벽 해제 해줘야함. 안그러면 get요청 밖에 안되고 post(삽입),put(수정) 요청 아예 못함.
+
+
+
 ### 수정,삽입 테스트하는 방법(포트번호 수정, 방화벽 설정 먼저 해야함)
 
 수정 : cmd 창에
 curl -X PUT http://localhost:본인서버포트번호/store_stock_data/1 -H "Content-Type: application/json" -d "{\"stock_amount\": 120, \"stock_price\": 1500}"
 입력
 
-삽입 : cmd창에 
-curl -X POST http://localhost:본인서버포트번호/franchise_store_data \ -H "Content-Type: application/json" \ -d "{\"store_id\": 2, \"store_owner\": \"lee\", \"store_adress\": \"busan\", \"store_tell\": \"010-2222-3333\", \"store_status_code\": 0}" 
+삽입 : cmd창에
+curl -X POST http://localhost:본인서버포트번호/franchise_store_data \ -H "Content-Type: application/json" \ -d "{\"store_id\": 2, \"store_owner\": \"lee\", \"store_adress\": \"busan\", \"store_tell\": \"010-2222-3333\", \"store_status_code\": 0}"
 입력, 줄바꿈 안되게 해야 오류 안남
 
 
